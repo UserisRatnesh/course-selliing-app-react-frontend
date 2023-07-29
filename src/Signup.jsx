@@ -9,7 +9,6 @@ function Signup(){
     const [password, setPassword] = useState("");
     
     return <div >
-    {email} PASS - {password}
         <div style={{
             paddingTop:150,
             marginBottom:10,
