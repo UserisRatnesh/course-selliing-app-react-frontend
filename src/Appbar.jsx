@@ -11,7 +11,7 @@ function Appbar(){
         padding: 4
         }}>
         <div>
-            <Typography>Coursera Appbar</Typography>
+            <Typography>Coursera</Typography>
         </div>
         <div>
             <Button variant={"contained"} onClick={()=>
