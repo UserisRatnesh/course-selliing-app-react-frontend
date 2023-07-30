@@ -7,6 +7,7 @@ import {Typography} from "@mui/material";
 function Addcourse(){
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [imageLink, setImageLink] = useState("");
 
     return <div>
     <div style={{
@@ -45,6 +46,15 @@ function Addcourse(){
                         variant="outlined" 
                     />
                     <br/><br/>
+                    <TextField 
+                        onChange = {(e)=>{
+                            setImageLink(e.target.value);
+                        }}
+                        fullWidth={true} 
+                        label="imageLink" 
+                        variant="outlined" 
+                    />
+                    <br/><br/>
                     <Button 
                         size={"large"}
                         variant="contained"
@@ -54,7 +64,7 @@ function Addcourse(){
                                 body : JSON.stringify({
                                     title : title,
                                     description : description,
-                                    imgLink : "",
+                                    imgLink : imageLink,
                                     published : true
                                 }),
                                 headers : {
