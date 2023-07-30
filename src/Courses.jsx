@@ -1,5 +1,7 @@
 import React from 'react';
 import{ useState, useEffect } from "react";
+import Card from '@mui/material/Card';
+import { Typography } from '@mui/material';
 
 function Courses(){
     const [courses, setCourses]=useState([]);
@@ -12,27 +14,31 @@ function Courses(){
         }).then((res)=>{
             res.json().then((data)=>{
                 console.log(data);
-                setCourses(data);
+                setCourses(data.courses);   //We get data with a key - "courses" which stores the array of courses.
             })
         })
     },[])
     return (
     <div>
         <h3>courses</h3>
-        {/* {courses.map(createCourse)} */}
+        {courses.map(createCourse)}
     </div>)
 }
 
 function createCourse(course){
     return <div>
-        <Course title={course.title} description={course.description}></Course>
+        <Course key={course.id} title={course.title} description={course.description}></Course>
     </div>
 }
 function Course(props){
-    return <div>
-        {props.title}
+    return <Card style={{
+        margin: 10,
+        width : "100vh",
+        minHeight : 100
+    }}>
+        <Typography textAlign="center" variant='h5'>{props.title}</Typography>
         <br/>
-        {props.description}
-    </div>
+        <Typography textAlign="center" variant='subtitle1'>{props.description}</Typography>
+    </Card>
 }
 export default Courses;
