@@ -64,7 +64,7 @@ function Signup(){
                             })
                         });
                     }}
-                    >Sign Up</Button>
+                >Sign Up</Button>
             </Card>
         </div>
     </div>

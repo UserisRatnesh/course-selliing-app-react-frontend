@@ -6,6 +6,7 @@ import Appbar from "./Appbar.jsx";
 import Addcourse from "./Addcourse.jsx";
 
 
+
 function App() {
   
   return (
@@ -17,6 +18,7 @@ function App() {
       <Router>
         <Appbar></Appbar>
           <Routes>
+            <Route path="/course" element={<Course />} />
             <Route path="/addcourse" element={<Addcourse />} />
             <Route path="/signin" element={<Signin />} />
             <Route path="/signup" element={<Signup />} />
