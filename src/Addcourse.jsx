@@ -64,6 +64,7 @@ function Addcourse(){
                             }).then((res)=>{
                                 res.json().then((data)=>{
                                     console.log(data);
+                                    alert("course added successfully");
                                 })
                             });
                         }}
