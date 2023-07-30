@@ -27,7 +27,7 @@ function Courses(){
 
 function createCourse(course){
     return <div>
-        <Course key={course.id} title={course.title} description={course.description}></Course>
+        <Course key={course.id}  imageLink={course.imgLink} title={course.title} description={course.description}></Course>
     </div>
 }
 function Course(props){
@@ -39,6 +39,7 @@ function Course(props){
         <Typography textAlign="center" variant='h5'>{props.title}</Typography>
         <br/>
         <Typography textAlign="center" variant='subtitle1'>{props.description}</Typography>
+        <img style={{height : 300 ,width : 300}} src={props.imageLink} alt="image"></img>
     </Card>
 }
 export default Courses;
