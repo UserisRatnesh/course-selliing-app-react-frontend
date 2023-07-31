@@ -1,14 +1,60 @@
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Card from '@mui/material/Card';
-import { useState } from "react";
-import {Typography} from "@mui/material";
+import { useParams} from "react-router-dom";
+import{ useState, useEffect } from "react";
+import { Card } from "@mui/material";
+import { Typography,TextField,Button } from '@mui/material';
 
-function Addcourse(){
+function Course(){
+
+    let {courseId} = useParams();
+    const [courses, setCourses] = useState([]);
+
+    useEffect(()=>{
+        fetch("http://localhost:3000/admin/courses",{
+            method : "GET",
+            headers : {
+                "Authorization" : "Bearer "+localStorage.getItem("token")
+            }
+        }).then((res)=>{
+            res.json().then((data)=>{
+                console.log(data);
+                setCourses(data.courses);   //We get data with a key - "courses" which stores the array of courses.
+            })
+        })
+    },[])
+
+    const course = courses.find((c) => c.id == courseId);
+  
+    if (!course) {
+      return <div>Course not found</div>;
+    }
+  
+    return <div>
+    <CourseCard course={course}></CourseCard>
+    <UpdateCard course={course}></UpdateCard>
+    </div>
+  }
+
+function CourseCard(props){
+    const course=props.course;
+    return <div style={{display:"flex", justifyContent:"center"}}>
+        <Card style={{
+            margin: 10,
+            width : 200,
+            minHeight : 200
+        }}>
+            <Typography textAlign="center" variant='h5'>{course.title}</Typography>
+            <br/>
+            <Typography textAlign="center" variant='subtitle1'>{course.description}</Typography>
+            <img style={{height : 200 ,width : 200}} src={course.imgLink} alt="image"></img>
+        </Card>
+    </div>
+}
+
+function UpdateCard(props){
+    const course=props.course;
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [imageLink, setImageLink] = useState("");
-
     return <div>
     <div style={{
             paddingTop:150,
@@ -17,7 +63,7 @@ function Addcourse(){
             justifyContent: "center"
         }}>
             <Typography variant={"h6"}>
-                Course Details !
+                Update Course Details
             </Typography>
         </div>
         <div style={{
@@ -59,8 +105,8 @@ function Addcourse(){
                         size={"large"}
                         variant="contained"
                         onClick={()=>{
-                            fetch("http://localhost:3000/admin/courses",{
-                                method : "POST",
+                            fetch("http://localhost:3000/admin/courses/"+course.id,{
+                                method : "PUT",
                                 body : JSON.stringify({
                                     title : title,
                                     description : description,
@@ -74,14 +120,15 @@ function Addcourse(){
                             }).then((res)=>{
                                 res.json().then((data)=>{
                                     console.log(data);
-                                    alert("course added successfully");
+                                    alert("course updated successfully");
                                 })
                             });
                         }}
-                    >Add course</Button>
+                    >Update course</Button>
                 </Card>
         </div>
     </div>
 }
 
-export default Addcourse;
+
+export default Course;

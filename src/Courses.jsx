@@ -19,8 +19,7 @@ function Courses(){
         })
     },[])
     return (
-    <div>
-        <h3>courses</h3>
+    <div style={{display:"flex", flexWrap:"wrap", justifyContent:"center"}}>
         {courses.map(createCourse)}
     </div>)
 }
@@ -33,13 +32,13 @@ function createCourse(course){
 function Course(props){
     return <Card style={{
         margin: 10,
-        width : "100vh",
-        minHeight : 100
+        width : 200,
+        minHeight : 200
     }}>
         <Typography textAlign="center" variant='h5'>{props.title}</Typography>
         <br/>
         <Typography textAlign="center" variant='subtitle1'>{props.description}</Typography>
-        <img style={{height : 300 ,width : 300}} src={props.imageLink} alt="image"></img>
+        <img style={{height : 200 ,width : 200}} src={props.imageLink} alt="image"></img>
     </Card>
 }
 export default Courses;
