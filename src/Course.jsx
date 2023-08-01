@@ -28,9 +28,9 @@ function Course(){
       return <div>Course not found</div>;
     }
   
-    return <div>
+    return <div style={{display:"flex", justifyContent:"center"}}>
     <CourseCard course={course}></CourseCard>
-    <UpdateCard course={course}></UpdateCard>
+    <UpdateCard course={course} courses={courses} setCourses={setCourses}></UpdateCard>
     </div>
   }
 
@@ -38,7 +38,7 @@ function CourseCard(props){
     const course=props.course;
     return <div style={{display:"flex", justifyContent:"center"}}>
         <Card style={{
-            margin: 10,
+            margin: 10, 
             width : 200,
             minHeight : 200
         }}>
@@ -52,6 +52,8 @@ function CourseCard(props){
 
 function UpdateCard(props){
     const course=props.course;
+    const courses=props.courses;
+    const setCourses=props.setCourses;
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [imageLink, setImageLink] = useState("");
@@ -121,6 +123,22 @@ function UpdateCard(props){
                                 res.json().then((data)=>{
                                     console.log(data);
                                     alert("course updated successfully");
+                                    let updatedCourses=[];
+                                    for ( let i=0;i<courses.length;i++)
+                                    {
+                                        if(courses[i].id == course.id)
+                                        {   //To update the course at i th position only not pushesh the course at last.
+                                            updatedCourses.push( {
+                                                id : course.id,
+                                                title : title,
+                                                description :description,
+                                                imgLink : imageLink
+                                            })
+                                        } else{
+                                            updatedCourses.push(courses[i]);
+                                        }
+                                    }
+                                    setCourses(updatedCourses);
                                 })
                             });
                         }}
