@@ -2,6 +2,7 @@ import React from 'react';
 import{ useState, useEffect } from "react";
 import Card from '@mui/material/Card';
 import { Typography } from '@mui/material';
+import { atom } from "recoil";
 
 function Courses(){
     const [courses, setCourses]=useState([]);
@@ -42,3 +43,9 @@ function Course(props){
     </Card>
 }
 export default Courses;
+
+
+const textState = atom({
+    key: 'textState', // unique ID (with respect to other atoms/selectors)
+    default: '', // default value (aka initial value)
+  });
