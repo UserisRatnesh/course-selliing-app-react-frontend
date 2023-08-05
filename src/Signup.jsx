@@ -3,6 +3,7 @@ import TextField from '@mui/material/TextField';
 import Card from '@mui/material/Card';
 import {Typography} from "@mui/material";
 import { useState } from "react";
+import axios from "axios";
 
 function Signup(){
     const [email, setEmail]= useState("");
@@ -48,20 +49,13 @@ function Signup(){
                     size={"large"}
                     variant="contained"
                     onClick={()=>{
-                        fetch("http://localhost:3000/admin/signup",{
-                            method : "POST",
-                            body : JSON.stringify({
-                                username : email,
-                                password : password
-                            }),
-                            headers : {
-                                "Content-type" : "application/json"
-                            }
+                        axios.post("http://localhost:3000/admin/signup",{
+                            username : email,
+                            password : password
                         }).then((res)=>{
-                            res.json().then((data)=>{
-                                localStorage.setItem("token",data.token);
-                                console.log(data);
-                            })
+                            console.log(res.data);
+                            localStorage.setItem("token", res.data.token);
+                            window.location="/admin/me";
                         });
                     }}
                 >Sign Up</Button>
